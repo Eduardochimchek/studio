@@ -36,6 +36,30 @@ const WORKS = {
       placeholder: false
     },
     {
+      title: "Reels de dica: ansiedade no dia a dia",
+      client: "Projeto conceitual · Clínica Serena",
+      description: "Os três Reels da Clínica Serena saíram do mesmo template em Remotion: só os textos mudam, e a duração se ajusta sozinha ao ritmo de leitura.",
+      src: "assets/videos/serena-dica.mp4",
+      poster: "assets/images/serena-dica-poster.jpg",
+      placeholder: false
+    },
+    {
+      title: "Reels mito × verdade sobre terapia",
+      client: "Projeto conceitual · Clínica Serena",
+      description: "Os três Reels da Clínica Serena saíram do mesmo template em Remotion: só os textos mudam, e a duração se ajusta sozinha ao ritmo de leitura.",
+      src: "assets/videos/serena-mito.mp4",
+      poster: "assets/images/serena-mito-poster.jpg",
+      placeholder: false
+    },
+    {
+      title: "Reels de convite para a primeira conversa",
+      client: "Projeto conceitual · Clínica Serena",
+      description: "Os três Reels da Clínica Serena saíram do mesmo template em Remotion: só os textos mudam, e a duração se ajusta sozinha ao ritmo de leitura.",
+      src: "assets/videos/serena-convite.mp4",
+      poster: "assets/images/serena-convite-poster.jpg",
+      placeholder: false
+    },
+    {
       title: "Vídeo para anúncio",
       client: "Próximo projeto",
       description: "Espaço reservado para um novo trabalho.",

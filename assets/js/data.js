@@ -55,10 +55,10 @@ const WORKS = {
   landingPages: [
     {
       title: "Landing page para clínica",
-      segment: "Saúde",
+      segment: "Projeto conceitual · Saúde",
       url: "../lp-clinica/",
       image: "assets/images/lp-clinica.jpg",
-      placeholder: true
+      placeholder: false
     },
     {
       title: "Landing page para SaaS",

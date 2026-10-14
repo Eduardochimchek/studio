@@ -620,6 +620,255 @@ html.has-lightbox {
   height: 16px;
 }
 
+/* Player de vídeo ampliado (usa a base do lightbox) */
+.player {
+  padding: 56px var(--gutter) 16px;
+}
+
+/* fundo opaco: nada da página compete com o vídeo e os controles */
+.player::backdrop {
+  background: #141312;
+}
+
+.player-layout {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+}
+
+.player-stage {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  background: #000;
+}
+
+.player-video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  /* espaço para a barra de controles e a legenda abaixo */
+  max-height: calc(100vh - 250px);
+  max-height: calc(100dvh - 250px);
+  cursor: pointer;
+}
+
+.player-stage:fullscreen .player-video {
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+
+.player-bar {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 560px);
+}
+
+.player-timeline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.player-seek {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.player-seek::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #FAFAF7 var(--progress, 0%), rgba(250, 250, 247, 0.25) var(--progress, 0%));
+}
+
+.player-seek::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: #FAFAF7;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.player-seek::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(250, 250, 247, 0.25);
+}
+
+.player-seek::-moz-range-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: #FAFAF7;
+}
+
+.player-seek::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 50%;
+  background: #FAFAF7;
+}
+
+.player-seek:focus-visible {
+  outline: 2px solid #FAFAF7;
+  outline-offset: 4px;
+}
+
+.player-time {
+  flex: none;
+  min-width: 11ch;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: rgba(250, 250, 247, 0.8);
+}
+
+.player-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.player-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.player-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(250, 250, 247, 0.3);
+  border-radius: 50%;
+  background: transparent;
+  color: #FAFAF7;
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.player-btn:hover {
+  border-color: #FAFAF7;
+}
+
+.player-btn:focus-visible {
+  outline: 2px solid #FAFAF7;
+  outline-offset: 2px;
+}
+
+.player-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.player-btn--main {
+  width: 52px;
+  height: 52px;
+  border-color: #FAFAF7;
+  background: #FAFAF7;
+  color: var(--ink);
+}
+
+.player-btn--main:hover {
+  background: rgba(250, 250, 247, 0.85);
+}
+
+.player-btn--text {
+  width: auto;
+  min-width: 52px;
+  padding: 0 12px;
+  border-radius: 22px;
+  font-variant-numeric: tabular-nums;
+}
+
+.player-hint,
+.player-caption {
+  margin: 0;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: rgba(250, 250, 247, 0.6);
+}
+
+.player-caption {
+  max-width: 60ch;
+  font-size: 0.9375rem;
+  color: rgba(250, 250, 247, 0.8);
+}
+
+/* atalhos de teclado só fazem sentido com teclado e mouse */
+@media (hover: none), (pointer: coarse) {
+  .player-hint {
+    display: none;
+  }
+
+  .player-video {
+    max-height: calc(100vh - 230px);
+    max-height: calc(100dvh - 230px);
+  }
+}
+
+/* celular: todos os controles numa linha só, para sobrar altura para o vídeo */
+@media (max-width: 480px) {
+  .player {
+    padding: 56px 12px 12px;
+  }
+
+  .player-layout {
+    gap: 10px;
+  }
+
+  .player-video {
+    max-height: calc(100vh - 210px);
+    max-height: calc(100dvh - 210px);
+  }
+
+  .player-controls {
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .player-group {
+    gap: 4px;
+  }
+
+  .player-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .player-btn--main {
+    width: 46px;
+    height: 46px;
+  }
+
+  .player-btn--text {
+    min-width: 44px;
+    padding: 0 8px;
+  }
+
+  .player-caption {
+    font-size: 0.8125rem;
+  }
+}
+
 /* Placeholder ("Em breve") */
 .placeholder {
   position: absolute;
@@ -677,6 +926,43 @@ html.has-lightbox {
 .media-toggle svg {
   width: 14px;
   height: 14px;
+}
+
+/* Ampliar vídeo: mesmo estilo do botão de pausa, no canto de cima */
+.media-expand {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(250, 250, 247, 0.45);
+  border-radius: 50%;
+  background: rgba(28, 27, 25, 0.55);
+  color: #FAFAF7;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.media-expand:hover {
+  background: rgba(28, 27, 25, 0.8);
+}
+
+.media-expand:focus-visible {
+  outline: 2px solid #FAFAF7;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--accent);
+}
+
+.media-expand svg {
+  width: 14px;
+  height: 14px;
+}
+
+.media--vertical > video {
+  cursor: zoom-in;
 }
 
 /* Serviços --------------------------------------------------------------- */

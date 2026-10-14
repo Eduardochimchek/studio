@@ -34,6 +34,22 @@ Todos os trabalhos ficam em `assets/js/data.js`, dentro de `WORKS`. Copie um obj
 
 O vídeo toca sem som, em loop, só quando está visível na tela, e tem um botão para pausar. Quando há um único vídeo, ele aparece em destaque, com o texto ao lado; a partir de dois, vira grade.
 
+#### Galeria do vídeo (opcional)
+
+Para mostrar imagens de bastidores ou do sistema visual abaixo do vídeo, adicione `gallery` ao item:
+
+```js
+gallery: [
+  {
+    src: "assets/images/nome-da-imagem.jpg",
+    alt: "Descrição do que aparece na imagem",
+    caption: "Legenda curta exibida abaixo da imagem."
+  }
+]
+```
+
+As imagens aparecem em 16:9 (recomendado: JPG 1600×900), lado a lado no computador e empilhadas no celular, e abrem em tela cheia ao clicar. Uma imagem que não carregar simplesmente não aparece.
+
 ### Landing page
 
 ```js

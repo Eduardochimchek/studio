@@ -11,7 +11,9 @@ const SHOW_PLACEHOLDERS = false;
 
 const WORKS = {
   /* Vídeos verticais 9:16.
-   * Campos: title, client, description, src (MP4), poster (JPG), placeholder */
+   * Campos: title, client, description, src (MP4), poster (JPG), placeholder
+   * gallery (opcional): imagens 16:9 exibidas abaixo do vídeo, que abrem em tela cheia.
+   *   [{ src: "assets/images/nome.jpg", alt: "o que aparece na imagem", caption: "legenda" }] */
   videos: [
     {
       title: "Vídeo comercial animado para Reels e Stories",
@@ -19,6 +21,18 @@ const WORKS = {
       description: "Peça animada em formato vertical, pensada para o ritmo dos Reels e Stories.",
       src: "assets/videos/aromas-albore.mp4",
       poster: "assets/images/aromas-albore-poster.jpg",
+      gallery: [
+        {
+          src: "assets/images/aromas-historia.jpg",
+          alt: "Quatro telas do vídeo lado a lado: logotipo da Aromas Alboré, frascos do aromatizador, os quatro aromas da coleção e a chamada final para pedido",
+          caption: "Estrutura do vídeo: marca, produto, coleção e chamada."
+        },
+        {
+          src: "assets/images/aromas-colecao.jpg",
+          alt: "Quatro telas da coleção, uma por aroma, cada uma com cores próprias: Lavanda Citrus, Ocean Waves, Vila Romana e Vanilla Vetiver",
+          caption: "Um sistema visual com uma cena para cada aroma."
+        }
+      ],
       placeholder: false
     },
     {

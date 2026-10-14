@@ -125,9 +125,101 @@
         h("p", { class: "card-client", text: item.client }),
         h("h4", { class: "card-title", text: item.title }),
         item.description ? h("p", { class: "card-desc", text: item.description }) : null
-      ])
+      ]),
+      item.placeholder ? null : renderGallery(item.gallery)
     ]);
   }
+
+  /* Galeria de imagens 16:9 abaixo do vídeo ------------------------------ */
+
+  function renderGallery(images) {
+    if (!images || !images.length) return null;
+    var list = h("ul", { class: "gallery" });
+
+    images.forEach(function (image) {
+      var label = image.caption || image.alt || "";
+      var img = h("img", {
+        src: image.src,
+        alt: image.alt || image.caption || "",
+        width: "1600",
+        height: "900",
+        loading: "lazy",
+        decoding: "async"
+      });
+      var open = h("button", {
+        class: "gallery-open",
+        type: "button",
+        "aria-haspopup": "dialog",
+        "aria-label": "Ampliar imagem" + (label ? ": " + label : "")
+      }, [img]);
+      var entry = h("li", { class: "gallery-item" }, [
+        h("figure", null, [
+          open,
+          image.caption ? h("figcaption", { class: "caption", text: image.caption }) : null
+        ])
+      ]);
+
+      /* Imagem com erro some; galeria sem nenhuma imagem também */
+      img.addEventListener("error", function () {
+        entry.hidden = true;
+        if (!list.querySelector(".gallery-item:not([hidden])")) list.hidden = true;
+      });
+      open.addEventListener("click", function () {
+        lightbox.open(image, open);
+      });
+
+      list.appendChild(entry);
+    });
+
+    return list;
+  }
+
+  /* Lightbox: <dialog> nativo (foco preso, Esc fecha), clique fora fecha */
+  var lightbox = (function () {
+    var dialog, img, caption, trigger;
+
+    function build() {
+      img = h("img", { class: "lightbox-image", alt: "" });
+      caption = h("figcaption", { class: "lightbox-caption" });
+      var close = h("button", { class: "lightbox-close", type: "button", "aria-label": "Fechar imagem" });
+      close.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>';
+      dialog = h("dialog", { class: "lightbox", "aria-label": "Imagem ampliada" }, [
+        close,
+        h("figure", { class: "lightbox-figure" }, [img, caption])
+      ]);
+      document.body.appendChild(dialog);
+
+      close.addEventListener("click", function () { dialog.close(); });
+      /* O dialog ocupa a tela; clique em qualquer área que não seja a imagem ou a legenda fecha */
+      dialog.addEventListener("click", function (event) {
+        if (event.target !== img && event.target !== caption) dialog.close();
+      });
+      dialog.addEventListener("close", function () {
+        root.classList.remove("has-lightbox");
+        img.removeAttribute("src");
+        if (trigger) trigger.focus();
+      });
+    }
+
+    return {
+      open: function (image, from) {
+        if (!dialog) build();
+        /* Navegador sem <dialog>: abre a imagem direto */
+        if (typeof dialog.showModal !== "function") {
+          window.open(image.src, "_blank", "noopener");
+          return;
+        }
+        trigger = from;
+        img.src = image.src;
+        img.alt = image.alt || image.caption || "";
+        caption.textContent = image.caption || "";
+        caption.hidden = !image.caption;
+        dialog.setAttribute("aria-label", image.caption || "Imagem ampliada");
+        root.classList.add("has-lightbox");
+        dialog.showModal();
+      }
+    };
+  })();
 
   /* Landing pages -------------------------------------------------------- */
 
